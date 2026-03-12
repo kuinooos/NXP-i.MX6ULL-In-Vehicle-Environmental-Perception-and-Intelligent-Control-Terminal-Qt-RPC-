@@ -50,4 +50,45 @@ package "底层硬件" {
 [硬件控制服务] <--> [字符设备驱动]
 [天气服务] --> [心知天气 API]
 @enduml
+```
 
+## 技术栈
+
+| 层级 | 技术 |
+|---|---|
+| 应用层 | Qt5/6（GUI + Designer）、QSS |
+| 服务层 | C++11/14、JSON-RPC、libcurl、SQLite、多线程、Socket |
+| 驱动层 | Linux 字符设备驱动、设备树、GPIO 子系统、中断处理 |
+| 硬件 | NXP i.MX6ULL、DHT11、SR501、6BYJ-48、LED |
+| 外部 | 心知天气 API |
+
+---
+
+### 硬件平台要求
+
+**主控：**  
+NXP i.MX6ULL（或兼容的 i.MX6ULL 开发板，如百问网、野火、正点原子）
+
+**系统：**  
+openEuler / Ubuntu 20.04+（ARM64）
+
+**外设：**
+
+- DHT11（温湿度传感器）
+- SR501（人体红外感应）
+- 6BYJ-48 步进电机 + ULN2003 驱动板
+- LED（GPIO直驱）
+- 电阻、电容、杜邦线若干
+
+---
+
+## 快速开始
+
+### 1. 环境准备
+
+```bash
+安装依赖（openEuler / Ubuntu）
+sudo apt update
+
+
+sudo apt install build-essential cmake qtbase5-dev qt5-qmake qttools5-dev-tools libsqlite3-dev libcurl4-openssl-dev
