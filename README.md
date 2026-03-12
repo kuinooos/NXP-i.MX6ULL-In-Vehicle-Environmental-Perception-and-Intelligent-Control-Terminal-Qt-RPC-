@@ -89,6 +89,52 @@ openEuler / Ubuntu 20.04+（ARM64）
 ```bash
 安装依赖（openEuler / Ubuntu）
 sudo apt update
-
-
 sudo apt install build-essential cmake qtbase5-dev qt5-qmake qttools5-dev-tools libsqlite3-dev libcurl4-openssl-dev
+```
+## 2\. 编译驱动
+
+```
+cd drivermakesudo insmod imx6ull_gpio_driver.ko
+```
+
+---
+
+## 3\. 编译服务端 + 客户端
+
+```
+mkdir build && cd buildcmake ..make -j8
+```
+
+---
+
+## 4\. 运行
+
+```
+ 终端1：启动硬件控制服务./hardware_service
+ 终端2：启动天气服务./weather_service
+ 终端3：启动 Qt GUI 客户端./qt_client
+```
+
+---
+
+# 项目目录结构
+
+```
+iMX6ULL-CarTerminal/├── driver/
+  # Linux 字符设备驱动 + 设备树├── server/│   ├── hardware/
+  # JSON-RPC 硬件控制服务│   ├── weather/
+  # libcurl 天气服务│   └── common/
+  # RPC 协议、线程池、SQLite├── client/
+  # Qt GUI 客户端├── protocol/
+  # 自定义 JSON-RPC 协议定义├── docs/
+  # 设计文档、接口文档├── scripts/
+  # 部署、测试脚本├── CMakeLists.txt├── README.md└── LICENSE
+```
+
+---
+
+# 未来规划（Roadmap）
+
+* 支持 CAN 总线与车身网络对接
+* 添加 OTA 远程升级功能
+* 加入 TensorFlow Lite 边缘推理（乘员疲劳检测）
